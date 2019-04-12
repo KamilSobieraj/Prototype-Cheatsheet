@@ -102,8 +102,7 @@ console.log(c.color); // blue
 
 
 **********************************************************************************************/
-/******************************* Super/Call Constructor
- * **********************************************************************************************/
+/******************************* Inheritance in action
 
 const canEat = {
   eat: function(name) {
@@ -140,4 +139,34 @@ console.log(Dog.prototype); // {eat: ƒ, walk: ƒ, constructor: ƒ}
 const person = new Person();
 const dog = new Dog();
 console.log(person.walk("Jasmin")); //Jasmin is a/an human and can walk!
-console.log(dog.eat("Brutus")); //Brutus is a/an dog and can eat!
+console.log(dog.eat("Brutus")); //Brutus is a/an dog and can eat! 
+
+
+
+* **********************************************************************************************/
+/******************************* Exercise - Prototypical Inheritance
+
+const HTMLElement = function() {
+  this.click = function() {
+    console.log("clicked!");
+  };
+};
+const HTMLSelectElement = function(items) {
+  this.items = [];
+  this.addItem = function(newItem) {
+    this.items.push(newItem);
+  };
+  this.removeItem = function(itemToRemove) {
+    this.items.splice(this.items.indexOf(itemToRemove), 1);
+  };
+};
+
+HTMLElement.prototype.focus = function() {
+  console.log("focused!");
+};
+
+HTMLSelectElement.prototype = new HTMLElement();
+HTMLSelectElement.prototype.constructor = HTMLSelectElement;
+
+
+* * **********************************************************************************************/
