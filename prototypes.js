@@ -102,3 +102,42 @@ console.log(c.color); // blue
 
 
 **********************************************************************************************/
+/******************************* Super/Call Constructor
+ * **********************************************************************************************/
+
+const canEat = {
+  eat: function(name) {
+    this.name = name;
+    console.log(`${this.name} is a/an ${this.entity} and can eat!`);
+  }
+};
+const canWalk = {
+  walk: function(name) {
+    this.name = name;
+    console.log(`${this.name} is a/an ${this.entity} and can walk!`);
+  }
+};
+const canSwim = {
+  swim: function(name) {
+    this.name = name;
+    console.log(`${this.name} is a/an ${this.entity} and can eat!`);
+  }
+};
+
+function Person() {
+  this.entity = "human";
+}
+function Dog() {
+  this.entity = "dog";
+}
+
+Object.assign(Person.prototype, canEat, canWalk, canSwim);
+Object.assign(Dog.prototype, canEat, canWalk);
+
+console.log(Person.prototype); // {eat: ƒ, walk: ƒ, swim: ƒ, constructor: ƒ}
+console.log(Dog.prototype); // {eat: ƒ, walk: ƒ, constructor: ƒ}
+
+const person = new Person();
+const dog = new Dog();
+console.log(person.walk("Jasmin")); //Jasmin is a/an human and can walk!
+console.log(dog.eat("Brutus")); //Brutus is a/an dog and can eat!
