@@ -45,3 +45,29 @@ console.log(c1.hasOwnProperty("draw")); // false, because it's prototype, not in
 
 
 **********************************************************************************************/
+/******************************* Prototype Inheritance
+ * **********************************************************************************************/
+
+function Circle(radius) {
+  this.radius = radius;
+}
+Circle.prototype.draw = function() {
+  console.log(`Draw a circle with radius of ${this.radius}!`);
+};
+
+function Shape() {}
+Shape.prototype.duplicate = function() {
+  console.log("Shape method");
+};
+
+//Circle will inherit prototype from Shape
+Circle.prototype = Object.create(Shape.prototype);
+//Above there's a problem with constructor:
+//Circle.prototype.constructor -> ƒ Shape() {}
+//It is because we reassigned the constructor as well.
+//The solution is to manually reassign back the constructor like:
+Circle.prototype.constructor = Circle;
+
+const c = new Circle(10);
+const s = new Shape();
+console.log(c.duplicate()); // Shape method
