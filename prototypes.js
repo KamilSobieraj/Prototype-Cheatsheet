@@ -46,7 +46,6 @@ console.log(c1.hasOwnProperty("draw")); // false, because it's prototype, not in
 
 **********************************************************************************************/
 /******************************* Prototype Inheritance
- * **********************************************************************************************/
 
 function Circle(radius) {
   this.radius = radius;
@@ -71,3 +70,35 @@ Circle.prototype.constructor = Circle;
 const c = new Circle(10);
 const s = new Shape();
 console.log(c.duplicate()); // Shape method
+
+
+
+* **********************************************************************************************/
+/******************************* Super/Call Constructor
+
+function Shape(color) {
+  this.color = color;
+}
+Shape.prototype.duplicate = function() {
+  console.log("Shape method");
+};
+
+//We want to use color from Shape in a Circle
+function Circle(radius, color) {
+  Shape.call(this, color);
+  this.radius = radius;
+}
+Circle.prototype.draw = function() {
+  console.log(`Draw a circle with radius of ${this.radius}!`);
+};
+
+Circle.prototype = Object.create(Shape.prototype);
+Circle.prototype.constructor = Circle;
+
+const s = new Shape();
+const c = new Circle(10, "blue");
+console.log(c.color); // blue
+
+
+
+**********************************************************************************************/
